@@ -3,7 +3,10 @@
 import click
 import contextlib
 import requests
+import requests_cache
 import json
+
+from datetime import timedelta
 
 
 # ANSI Color Codes
@@ -20,6 +23,9 @@ BOLD = "\033[1m"
 
 
 def fetch(word: str) -> dict:
+    requests_cache.install_cache(
+        cache_name="word_cache", expire_after=timedelta(days=30) # cache for 30 days
+    )
     return requests.get(
         f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}"
     ).json()
