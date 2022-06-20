@@ -49,9 +49,20 @@ def definition(res: dict) -> None:
     with contextlib.suppress(KeyError):  # supress errors to show nothing
         meanings = res[0]["meanings"]
         for i in meanings:
-            # print(f"• {GREEN}{i['definitions']['definition']}{RESET}")
             for j in i["definitions"]:
-                print(f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{j['definition']}{RESET}")
+                print(
+                    f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{j['definition']}{RESET}"
+                )
+
+
+def example(res: dict) -> None:
+    meanings = res[0]["meanings"]
+    for i in meanings:
+        for j in i["definitions"]:
+            try:  # contextlib stops the loop if there is no example
+                print(f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{j['example']}{RESET}")
+            except KeyError:
+                continue
 
 
 @click.command()
@@ -67,6 +78,8 @@ def main(word: str) -> None:
     phonetic(RES)
     print(f"\n{BOLD}{YELLOW}Definitions:{RESET}")
     definition(RES)
+    print(f"\n{BOLD}{YELLOW}Examples:{RESET}")
+    example(RES)
 
 
 if __name__ == "__main__":
