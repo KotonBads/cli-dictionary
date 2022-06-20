@@ -31,9 +31,8 @@ def write(word: str):
 
 
 def phonetic(res: dict) -> None:
-    phonetic = res[0]["phonetics"]
-
-    with contextlib.suppress(KeyError, UnboundLocalError):
+    with contextlib.suppress(KeyError, UnboundLocalError): # supress errors to show nothing
+        phonetic = res[0]["phonetics"]
         for i in phonetic:
 
             if i["text"] and i["audio"]:
@@ -45,9 +44,10 @@ def phonetic(res: dict) -> None:
 
 
 def definition(res: dict) -> None:
-    definition = res[0]["meanings"][0]["definitions"]
-    for i in definition:
-        print(f"• {GREEN}{i['definition']}{RESET}")
+    with contextlib.suppress(KeyError): # supress errors to show nothing
+        definition = res[0]["meanings"][0]["definitions"]
+        for i in definition:
+            print(f"• {GREEN}{i['definition']}{RESET}")
 
 
 @click.command()
