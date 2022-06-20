@@ -30,7 +30,7 @@ def write(word: str):
         json.dump(fetch(word), f)
 
 
-def phoentic(res: dict) -> None:
+def phonetic(res: dict) -> None:
     phonetic = res[0]["phonetics"]
 
     with contextlib.suppress(KeyError, UnboundLocalError):
@@ -60,7 +60,7 @@ def main(word: str) -> None:
     RES = fetch(word)
 
     print(f"{BOLD}{WHITE}[{word}]{RESET}")
-    phoentic(RES)
+    phonetic(RES)
     print(f"\n{BOLD}{YELLOW}Definitions:{RESET}")
     definition(RES)
 
