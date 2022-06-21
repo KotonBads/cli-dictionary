@@ -22,6 +22,11 @@ since I'm using click, any future options should be automatically documented in 
 # run this wherever the python file is
 ./main.py --help # or whatever you named the file
 ```
+you could also pipe this into a pager like `less` or `more`
+```bash
+# run this wherever the python file is
+./main.py [WORD] | less -R # -R makes the colors work
+```
 
 # Future Features
 I'd definitely would want to add a way to search for a word by its definition and add more stuff that the API provides like antonyms.
