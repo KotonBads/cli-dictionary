@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from curses import keyname
 import click
 import contextlib
 import requests
@@ -60,22 +61,26 @@ def definition(res: dict) -> None:
 
 
 def example(res: dict) -> None:
-    meanings = res[0]["meanings"]
-    for i in meanings:
-        for j in i["definitions"]:
-            with contextlib.suppress(KeyError):
-                print(f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{j['example']}{RESET}")
+    with contextlib.suppress(KeyError):
+        meanings = res[0]["meanings"]
+        for i in meanings:
+            for j in i["definitions"]:
+                with contextlib.suppress(KeyError):
+                    print(
+                        f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{j['example']}{RESET}"
+                    )
 
 
 def synonym(res: dict) -> None:
-    meanings = res[0]["meanings"]
-    for i in meanings:
-        for j in i["definitions"]:
-            if j["synonyms"]:
-                for k in j["synonyms"]:
-                    print(f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{k}{RESET}")
+    with contextlib.suppress(KeyError):
+        meanings = res[0]["meanings"]
+        for i in meanings:
+            for j in i["definitions"]:
+                if j["synonyms"]:
+                    for k in j["synonyms"]:
+                        print(f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{k}{RESET}")
 
-        with contextlib.suppress(KeyError):
+            # with contextlib.suppress(KeyError):
             if i["synonyms"]:
                 for j in i["synonyms"]:
                     print(f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{j}{RESET}")
