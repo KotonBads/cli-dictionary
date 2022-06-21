@@ -37,9 +37,7 @@ def write(word: str):
 
 
 def phonetic(res: dict) -> None:
-    with contextlib.suppress(
-        KeyError, UnboundLocalError
-    ):  # supress errors to show nothing
+    with contextlib.suppress(KeyError, UnboundLocalError):
         phonetic = res[0]["phonetics"]
         for i in phonetic:
 
@@ -52,7 +50,7 @@ def phonetic(res: dict) -> None:
 
 
 def definition(res: dict) -> None:
-    with contextlib.suppress(KeyError):  # supress errors to show nothing
+    with contextlib.suppress(KeyError):
         meanings = res[0]["meanings"]
         for i in meanings:
             for j in i["definitions"]:
