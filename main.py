@@ -65,10 +65,22 @@ def example(res: dict) -> None:
     meanings = res[0]["meanings"]
     for i in meanings:
         for j in i["definitions"]:
-            try:  # contextlib stops the loop if there is no example
+            with contextlib.suppress(KeyError):
                 print(f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{j['example']}{RESET}")
-            except KeyError:
-                continue
+
+
+def synonym(res: dict) -> None:
+    meanings = res[0]["meanings"]
+    for i in meanings:
+        for j in i["definitions"]:
+            if j["synonyms"]:
+                for k in j["synonyms"]:
+                    print(f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{k}{RESET}")
+
+        with contextlib.suppress(KeyError):
+            if i["synonyms"]:
+                for j in i["synonyms"]:
+                    print(f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{j}{RESET}")
 
 
 @click.command()
@@ -86,6 +98,8 @@ def main(word: str) -> None:
     definition(RES)
     print(f"\n{BOLD}{YELLOW}Examples:{RESET}")
     example(RES)
+    print(f"\n{BOLD}{YELLOW}Synonyms:{RESET}")
+    synonym(RES)
 
 
 if __name__ == "__main__":
