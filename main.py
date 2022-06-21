@@ -37,36 +37,29 @@ def write(word: str):
 
 
 def phonetic(res: dict) -> None:
-    with contextlib.suppress(
-        KeyError, UnboundLocalError
-    ):  # supress errors to show nothing
-        phonetic = res[0]["phonetics"]
-        for i in phonetic:
+    phonetic = res[0]["phonetics"]
+    for i in phonetic:
 
-            if i["text"] and i["audio"]:
-                text = i["text"]
-                audio = i["audio"]
-                accent = audio.split("/")[-1]
+        if i["text"] and i["audio"]:
+            text = i["text"]
+            audio = i["audio"]
+            accent = audio.split("/")[-1]
 
-        print(f"\033]8;;{audio}\033\\{CYAN}{text} ({accent})\033]8;;\033\\{RESET}")
+    print(f"\033]8;;{audio}\033\\{CYAN}{text} ({accent})\033]8;;\033\\{RESET}")
 
 
 def definition(res: dict) -> None:
-    with contextlib.suppress(KeyError):  # supress errors to show nothing
-        meanings = res[0]["meanings"]
-        for i in meanings:
-            for j in i["definitions"]:
-                print(
-                    f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{j['definition']}{RESET}"
-                )
+    meanings = res[0]["meanings"]
+    for i in meanings:
+        for j in i["definitions"]:
+            print(f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{j['definition']}{RESET}")
 
 
 def example(res: dict) -> None:
     meanings = res[0]["meanings"]
     for i in meanings:
         for j in i["definitions"]:
-            with contextlib.suppress(KeyError):
-                print(f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{j['example']}{RESET}")
+            print(f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{j['example']}{RESET}")
 
 
 def synonym(res: dict) -> None:
@@ -76,11 +69,9 @@ def synonym(res: dict) -> None:
             if j["synonyms"]:
                 for k in j["synonyms"]:
                     print(f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{k}{RESET}")
-
-        with contextlib.suppress(KeyError):
-            if i["synonyms"]:
-                for j in i["synonyms"]:
-                    print(f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{j}{RESET}")
+        if i["synonyms"]:
+            for j in i["synonyms"]:
+                print(f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{j}{RESET}")
 
 
 @click.command()
@@ -103,4 +94,7 @@ def main(word: str) -> None:
 
 
 if __name__ == "__main__":
-    main()
+    with contextlib.suppress(
+        KeyError, UnboundLocalError
+    ):  # supress error to show nothing
+        main()
