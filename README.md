@@ -33,3 +33,4 @@ I used `requests-cache` for caching the response of the API. This greatly improv
 
 # Future Features
 - Search by definition
+- Customizing output (eg only show synonyms or meaning)
