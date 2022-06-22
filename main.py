@@ -86,6 +86,21 @@ def synonym(res: dict) -> None:
                     print(f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{j}{RESET}")
 
 
+def antonym(res: dict) -> None:
+    with contextlib.suppress(KeyError):
+        meanings = res[0]["meanings"]
+        for i in meanings:
+            for j in i["definitions"]:
+                if j["antonyms"]:
+                    for k in j["antonyms"]:
+                        print(f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{k}{RESET}")
+
+            # with contextlib.suppress(KeyError):
+            if i["antonyms"]:
+                for j in i["antonyms"]:
+                    print(f"• {PURPLE}[{i['partOfSpeech']}] {GREEN}{j}{RESET}")
+
+
 @click.command()
 @click.argument("word")
 def main(word: str) -> None:
@@ -103,6 +118,8 @@ def main(word: str) -> None:
     example(RES)
     print(f"\n{BOLD}{YELLOW}Synonyms:{RESET}")
     synonym(RES)
+    print(f"\n{BOLD}{YELLOW}Antonyms:{RESET}")
+    antonym(RES)
 
 
 if __name__ == "__main__":
