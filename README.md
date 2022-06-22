@@ -32,4 +32,4 @@ you could also pipe this into a pager like `less` or `more`
 I used `requests-cache` for caching the response of the API. This greatly improved the speed of the program. The cache is stored in the same directory as the program and is valid for 30 days (1 month).
 
 # Future Features
-I'd definitely would want to add a way to search for a word by its definition and add more stuff that the API provides like antonyms.
+- Search by definition
